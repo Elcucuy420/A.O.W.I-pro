@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A.O.W.I — Actions HUD • Pro v8.2 (offline)</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<meta name="theme-color" content="#0b1220">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="bot">🤖</span>
+    <strong>A.O.W.I</strong>
+    <span class="muted">— Actions HUD</span>
+    <span class="ver">v8.2 Pro • offline</span>
+  </div>
+  <div class="controls">
+    <label>View
+      <select id="viewMode">
+        <option value="cards">HUD (Cards)</option>
+        <option value="table">A.O.W.I Execution (Table)</option>
+      </select>
+    </label>
+    <label>Posture
+      <select id="posture">
+        <option value="classic">Classic+</option>
+        <option value="aggr">Aggressive</option>
+        <option value="cons">Conservative</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main>
+  <section class="panel inputs">
+    <div class="row">
+      <div>
+        <label>Price
+          <input id="price" placeholder="e.g. 3335.69" inputmode="decimal">
+        </label>
+      </div>
+      <div>
+        <label>ATR(14) (H1)
+          <input id="atr" placeholder="e.g. 6.81" inputmode="decimal">
+        </label>
+      </div>
+      <div class="btns">
+        <button id="analyze" class="primary">Analyze</button>
+        <button id="clear" class="ghost">Clear</button>
+      </div>
+    </div>
+    <div class="hint">Tip: Use <b>H1 ATR(14)</b> for volatility anchor. Screenshots are optional; the engine works fully offline with manual inputs.</div>
+  </section>
+
+  <section class="panel logs">
+    <h3>Snapshots</h3>
+    <div id="snapshot"></div>
+    <h3>Logs</h3>
+    <pre id="logs"></pre>
+  </section>
+
+  <section id="cardsView" class="panel view"></section>
+  <section id="tableView" class="panel view hidden"></section>
+</main>
+
+<footer class="foot">PWA offline • No external libraries • GitHub Pages safe</footer>
+
+<script src="script.js"></script>
+<script>
+// PWA register
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+/* A.O.W.I Pro v8.2 — minimal, sleek HUD */
+:root{
+  --bg:#0b1220; --panel:#0f172a; --muted:#94a3b8;
+  --accent:#00e5ff; --card:#111b33; --glow:#102a46;
+  --buy:#22c55e; --sell:#ef4444; --tp:#fbbf24; --stop:#f87171;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:#e2e8f0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+.topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid #1e293b;background:linear-gradient(180deg,#0e1629,#0b1220)}
+.brand{display:flex;align-items:center;gap:8px;font-size:18px}
+.brand .muted{color:var(--muted)}
+.brand .ver{color:#60a5fa;font-size:12px;margin-left:6px}
+.controls label{font-size:12px;color:var(--muted);margin-right:10px}
+.controls select{background:#0f172a;color:#e2e8f0;border:1px solid #1f2a44;border-radius:8px;padding:6px 8px}
+main{max-width:1100px;margin:12px auto;padding:0 12px;display:grid;grid-template-columns:1fr;gap:12px}
+.panel{background:var(--panel);border:1px solid #1f2a44;border-radius:14px;padding:14px}
+.inputs .row{display:flex;gap:12px;flex-wrap:wrap}
+.inputs label{font-size:12px;color:var(--muted);display:block}
+.inputs input{margin-top:6px;width:160px;background:#0b1426;border:1px solid #213252;border-radius:10px;color:#e2e8f0;padding:10px}
+.btns{display:flex;gap:10px;align-items:flex-end}
+button{border-radius:10px;border:1px solid #1f2a44;padding:10px 14px;background:#0b1426;color:#e2e8f0;cursor:pointer}
+button.primary{background:linear-gradient(180deg,#00e5ff,#00bcd4);color:#002233;border:none}
+button.ghost{background:#0b1426}
+.hint{margin-top:8px;color:var(--muted);font-size:12px}
+.logs pre{background:#0b1426;border:1px solid #213252;color:#a3bffa;border-radius:10px;padding:10px;max-height:160px;overflow:auto}
+.view.hidden{display:none}
+.card{background:var(--card);border:1px solid #1f2a44;border-radius:16px;padding:14px;margin:14px 0;box-shadow:0 0 0 0 rgba(0,0,0,0), 0 0 0 1px #0a2747 inset}
+.card.glow{box-shadow:0 0 0 1px #0a2747 inset, 0 0 28px -14px var(--glow)}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.window{font-weight:700;font-size:18px}
+.badge{background:#0a2747;color:#9bd2ff;border-radius:999px;padding:6px 10px;font-size:12px;border:1px solid #1f2a44}
+.line{margin:8px 0;height:1px;background:#1f2a44}
+.rowKV{display:flex;gap:12px;flex-wrap:wrap}
+.kv{min-width:120px}
+.kv .label{font-size:12px;color:var(--muted)}
+.kv .value{font-weight:700;margin-top:4px}
+.value.buy{color:var(--buy)} .value.sell{color:var(--sell)}
+.value.tp{color:var(--tp)} .value.stop{color:var(--stop)}
+.table{width:100%;border-collapse:collapse;font-size:14px}
+.table th,.table td{padding:10px;border-bottom:1px solid #1f2a44}
+.table th{color:#9bd2ff;font-weight:600;text-align:left;background:#0f1b33;position:sticky;top:0}
+.table .sell{color:var(--sell);font-weight:700}
+.table .buy{color:var(--buy);font-weight:700}
+.foot{color:var(--muted);text-align:center;padding:14px}
