@@ -1,0 +1,13 @@
+{
+  "name": "Your Business Name",
+  "address": "Street 1, City",
+  "phone": "+47 123 45 678",
+  "services": [
+    {"name": "Haircut", "price": 500},
+    {"name": "Beard Trim", "price": 250}
+  ],
+  "faq": {
+    "Hva er åpningstidene?": "Vi er åpne fra 9:00 til 17:00 på hverdager.",
+    "Tilbyr dere drop-in?": "Ja, vi har drop-in basert på ledige timer."
+  }
+}
