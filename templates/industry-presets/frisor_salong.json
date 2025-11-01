@@ -1,0 +1,21 @@
+{
+  "name": "Frisørsalong",
+  "address": "Eksempelveien 1, 1234 Oslo",
+  "phone_number": "+47 123 45 678",
+  "services": [
+    {"name": "Dameklipp", "price": 650, "duration_minutes": 45},
+    {"name": "Herreklipp", "price": 450, "duration_minutes": 30},
+    {"name": "Farge", "price": 950, "duration_minutes": 90},
+    {"name": "Striping", "price": 1200, "duration_minutes": 120}
+  ],
+  "faq": [
+    {
+      "question": "Tar dere imot drop-in kunder?",
+      "answer": "Vi anbefaler at du bestiller time, men vi tar imot drop-in når vi har ledig kapasitet."
+    },
+    {
+      "question": "Tilbyr dere studentrabatt?",
+      "answer": "Ja, vi har 15% rabatt på klipp for studenter."
+    }
+  ]
+}
