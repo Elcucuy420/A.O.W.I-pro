@@ -1,37 +1,71 @@
+import os
+import requests
+from typing import Optional
+
 class GoogleCalendarIntegration:
     """
-    Integration stub for Google Calendar API. This class encapsulates the
-    interactions needed to create and manage events on a connected calendar.
-    In its current form it does not perform any real API calls and serves
-    purely as a placeholder for future development.
+    Real integration with the Google Calendar API.
+    This class can create events on a connected Google Calendar when enabled.
     """
 
-    def __init__(self, enabled: bool = False, credentials: dict | None = None) -> None:
-        # Whether this integration is active; controlled via config/integrations.json
+    def __init__(self, enabled: bool = False, calendar_id: str = "primary") -> None:
         self.enabled = enabled
-        # Credentials or token information needed to authenticate to Google APIs
-        self.credentials = credentials
+        self.calendar_id = calendar_id
 
-    def create_event(self, start_time: str, end_time: str, description: str, attendee_email: str | None = None) -> dict:
+    async def create_event(
+        self,
+        summary: str,
+        start_time: str,
+        end_time: str,
+        timezone: str = "Europe/Oslo",
+        description: str = "",
+        attendee_email: Optional[str] = None,
+    ) -> str:
         """
-        Create an event in Google Calendar. In this stub implementation it will
-        raise an error if the integration is disabled and otherwise return
-        a dictionary mimicking a successful response.
+        Create an event on Google Calendar. This requires a valid OAuth 2 access token
+        stored in the `GOOGLE_CALENDAR_API_TOKEN` environment variable.
 
-        :param start_time: ISO8601 formatted start time for the event.
-        :param end_time: ISO8601 formatted end time for the event.
-        :param description: Description or title of the event.
-        :param attendee_email: Optional email of an attendee to invite.
-        :return: A dictionary representing the created event.
+        :param summary: Title of the event.
+        :param start_time: ISO 8601 start date/time (e.g., "2025-11-02T10:00:00").
+        :param end_time: ISO 8601 end date/time.
+        :param timezone: IANA time zone (e.g., "Europe/Oslo").
+        :param description: Optional event description.
+        :param attendee_email: Optional attendee e m‑mail to add to the event.
+        :return: A human‭friendly confirmation string.
         """
         if not self.enabled:
             raise RuntimeError("Google Calendar integration is disabled.")
-        # Here you would use the Google Calendar API client to insert an event.
-        # Since this is a stub, simply return a placeholder response.
-        return {
-            "status": "success",
-            "start_time": start_time,
-            "end_time": end_time,
+
+        access_token = os.getenv("GOOGLE_CALENDAR_API_TOKEN")
+        if not access_token:
+            raise RuntimeError(
+                "GOOGLE_CALENDAR_API_TOKEN environment variable is not set."
+            )
+
+        url = f"https://www.googleapis.com/calendar/v3/calendars/{self.calendar_id}/events"
+        event_body: dict = {
+            "summary": summary,
             "description": description,
-            "attendee_email": attendee_email,
+            "start": {"dateTime": start_time, "timeZone": timezone},
+            "end": {"dateTime": end_time, "timeZone": timezone},
         }
+        if attendee_email:
+            event_body["attendees"] = [{"email": attendee_email}]
+
+        headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json",
+        }
+        response = requests.post(url, headers=headers, json=event_body)
+        if response.status_code not in (200, 201):
+            raise RuntimeError(
+                f"Google Calendar API error: {response.status_code} - {response.text}"
+            )
+
+        data = response.json()
+        event_link = data.get("htmlLink")
+        return (
+            f"Event created successfully"
+            + (f" – see {event_link}" if event_link else "")
+            + "."
+        )
