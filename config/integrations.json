@@ -1,0 +1,6 @@
+{
+  "google_calendar": {"enabled": false, "calendar_id": "primary"},
+  "gmail": {"enabled": false, "inbox_label": "INBOX"},
+  "tripletex": {"enabled": false, "client_id": "", "client_secret": ""},
+  "vipps": {"enabled": false, "merchant_id": ""}
+}
