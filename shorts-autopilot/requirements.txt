@@ -1,0 +1,17 @@
+openai>=1.40.0
+httpx>=0.27.0
+python-dotenv>=1.0.1
+pydantic>=2.8.0
+pymongo>=4.7.0
+moviepy>=1.0.3
+librosa>=0.10.2
+numba>=0.60.0
+opencv-python>=4.10.0.84
+pyyaml>=6.0.2
+requests>=2.32.3
+fastapi>=0.115.0
+uvicorn>=0.30.5
+beautifulsoup4>=4.12.3
+feedparser>=6.0.11
+textstat>=0.7.4
+langdetect>=1.0.9
