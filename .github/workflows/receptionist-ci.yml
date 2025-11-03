@@ -1,0 +1,34 @@
+name: receptionist-ci
+on:
+  push:
+    branches: [ main, feature/* ]
+    paths: [ 'apps/receptionist/**' ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'apps/receptionist/**' ]
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install -r apps/receptionist/requirements.txt
+      - name: Lint import
+        run: python -c "import fastapi, sqlmodel; print('Deps OK')"
+      - name: Unit smoke
+        run: python - << 'PY'
+from fastapi.testclient import TestClient
+import sys
+sys.path.append('apps/receptionist')
+from app import app
+client = TestClient(app)
+assert client.get('/health').status_code == 200
+print('Smoke OK')
+PY
+      - name: Build image
+        run: |
+          cd apps/receptionist
+          docker build -t receptionist:ci .
