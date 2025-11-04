@@ -1,10 +1,10 @@
-name: Shorts Research-Publish
+name: Shorts Learn
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '30 */6 * * *'
   workflow_dispatch: {}
 jobs:
-  run:
+  learn:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,15 +17,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r shorts-autopilot/requirements.txt
-      - name: Produce & publish (A/B)
+      - name: Reward update (placeholder until analytics live)
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
         run: |
-          python -c "from shorts_autopilot.cli import bootstrap; bootstrap()"
+          python - <<'PY'
+from shorts_autopilot.analytics.yt_fetch import fetch_video_metrics
+print('Learning cycle ready — add analytics wiring to persist rewards.')
+PY
